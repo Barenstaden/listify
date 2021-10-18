@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'nuxt',
       env: {
-        GRAPHQL_URL: 'http://localhost:1337/graphql',
+        BASE_URL: 'http://localhost:1337/graphql',
         PORT: 1337,
       },
       cwd: './frontend',
