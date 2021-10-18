@@ -88,19 +88,9 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     proxy: true,
-    baseURL: `${process.env.STRAPI_URL}`
-  },
-  publicRuntimeConfig: {
-    axios: {
-      browserBaseURL: process.env.STRAPI_URL
-    }
+    baseURL: "http://127.0.0.1:3001/api/"
   },
 
-  privateRuntimeConfig: {
-    axios: {
-      baseURL: process.env.STRAPI_URL
-    }
-  },
   proxy: {
     "/api/": {
       target: `http://localhost:${process.env.PORT}/`,

@@ -82,6 +82,7 @@ export default {
         name: this.item,
         category: this.category
       });
+
       if (this.updateCategory) {
         try {
           const res = await this.$axios({
