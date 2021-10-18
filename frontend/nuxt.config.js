@@ -91,6 +91,10 @@ export default {
   },
 
   proxy: {
+    "/node/": {
+      target: `http://127.0.0.1:3000/`,
+      pathRewrite: { "^/node/": "" }
+    },
     "/api/": {
       target: `http://127.0.0.1:${process.env.PORT}/`,
       pathRewrite: { "^/api/": "" }

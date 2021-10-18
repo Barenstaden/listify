@@ -1,6 +1,11 @@
 module.exports = {
   apps: [
     {
+      name: 'node',
+      script: './node/server.js',
+      watch: './node/',
+    },
+    {
       name: 'nuxt',
       env: {
         STRAPI_URL: 'http://localhost:1337',
