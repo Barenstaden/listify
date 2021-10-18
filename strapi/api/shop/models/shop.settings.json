@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "shops",
+  "info": {
+    "name": "shop",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "grocery_placement": {
+      "type": "component",
+      "repeatable": true,
+      "component": "category.grocery-placement"
+    }
+  }
+}

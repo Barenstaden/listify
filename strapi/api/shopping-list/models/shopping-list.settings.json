@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "shopping_lists",
+  "info": {
+    "name": "shopping list",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "users": {
+      "plugin": "users-permissions",
+      "collection": "user",
+      "via": "shopping_lists",
+      "dominant": true
+    },
+    "shopping_list": {
+      "type": "component",
+      "repeatable": true,
+      "component": "item.shopping-list"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_category_grocery_placements",
+  "info": {
+    "name": "grocery_placement",
+    "icon": "carrot",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "category": {
+      "model": "category"
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}
