@@ -75,7 +75,7 @@ export default {
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: "/graphql"
+        httpEndpoint: process.env.GRAPHQL_URL
       }
     },
     defaultOptions: {
