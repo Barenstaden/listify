@@ -17,8 +17,9 @@
       :items="categories"
       human="name"
       v-model="category"
+      @change.native="addItem()"
       inputValue="id"
-      class="w-full text-left"
+      class="w-full text-left px-2 text-blue-900"
     ></InputSelect>
     <p class="text-red-600" v-if="alreadyInList">
       Varen finnes allerede i handlelisten
@@ -44,6 +45,11 @@ export default {
       apiKey: "266e2d0f7855516b3bb47172c89c80b639f8e90cbe932b16d1e0dd7267754537"
     })
   }),
+  created() {
+    this.client.index("category").updateSettings({
+      rankingRules: ["exactness", "words", "typo", "proximity", "attribute"]
+    });
+  },
   apollo: {
     categories: {
       query: gql`
@@ -103,6 +109,8 @@ export default {
         console.log(error);
       }
       this.category = null;
+      this.updateCategory = false;
+      this.notFound = false;
       this.item = "";
     },
     triggerSearch() {
@@ -115,11 +123,10 @@ export default {
       return await this.client
         .index("category")
         .search(this.item, {
-          attributesToHighlight: ["name", "groceries"],
-          matches: true
+          attributesToHighlight: ["groceries"]
         })
         .then(res => {
-          if (res.hits.length == 1) {
+          if (res.hits.length) {
             this.category = res.hits[0];
           }
         });
