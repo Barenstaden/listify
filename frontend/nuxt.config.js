@@ -90,6 +90,17 @@ export default {
     proxy: true,
     baseURL: `${process.env.STRAPI_URL}`
   },
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.STRAPI_URL
+    }
+  },
+
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.STRAPI_URL
+    }
+  },
   proxy: {
     "/api/": {
       target: `http://localhost:${process.env.PORT}/`,
