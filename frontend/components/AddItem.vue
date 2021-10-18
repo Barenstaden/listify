@@ -42,7 +42,7 @@ export default {
     notFound: false,
     updateCategory: false,
     client: new MeiliSearch({
-      host: window.location.origin + "/search/",
+      host: "http://localhost:3001/search/",
       apiKey: "266e2d0f7855516b3bb47172c89c80b639f8e90cbe932b16d1e0dd7267754537"
     })
   }),
