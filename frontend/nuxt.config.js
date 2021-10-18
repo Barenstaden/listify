@@ -76,8 +76,6 @@ export default {
     clientConfigs: {
       default: {
         httpEndpoint: process.env.GRAPHQL_URL
-          ? process.env.GRAPHQL_URL
-          : "https://handleliste.no/graphql"
       }
     },
     defaultOptions: {
