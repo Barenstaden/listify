@@ -87,13 +87,12 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    proxy: true,
-    baseURL: "/api/"
+    proxy: true
   },
 
   proxy: {
     "/api/": {
-      target: `http://localhost:${process.env.PORT}/`,
+      target: `http://127.0.0.1:${process.env.PORT}/`,
       pathRewrite: { "^/api/": "" }
     },
     "/search/": {

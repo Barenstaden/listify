@@ -29,6 +29,7 @@
 
 <script>
 import { MeiliSearch } from "meilisearch";
+import axios from "axios";
 import gql from "graphql-tag";
 export default {
   props: {
@@ -85,8 +86,8 @@ export default {
 
       if (this.updateCategory) {
         try {
-          const res = await this.$axios({
-            url: `/categories/${this.category.id}`,
+          const res = await axios({
+            url: `/api/categories/${this.category.id}`,
             method: "put",
             data: {
               groceries: this.category.groceries + ", " + this.item
@@ -97,8 +98,8 @@ export default {
         }
       }
       try {
-        const res = await this.$axios({
-          url: `/shopping-lists/${this.$route.params.list}`,
+        const res = await axios({
+          url: `/api/shopping-lists/${this.$route.params.list}`,
           method: "put",
           data: {
             shopping_list: items
