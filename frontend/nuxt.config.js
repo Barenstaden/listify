@@ -88,7 +88,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     proxy: true,
-    baseURL: `${process.env.STRAPI_URL}`
+    baseURL: "http://127.0.0.1:1337"
   },
   proxy: {
     "/api/": {
@@ -96,7 +96,7 @@ export default {
       pathRewrite: { "^/api/": "" }
     },
     "/search/": {
-      target: "http://localhost:7700",
+      target: "http://127.0.0.1:7700",
       pathRewrite: { "^/search/": "" }
     },
     "/uploads/": {
