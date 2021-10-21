@@ -8,6 +8,7 @@
             {{ shops[selectedShop].name }}
           </h1>
           <h2 class="text-xl lg:text-2xl mt-4">
+            <!-- Trigger -->
             En handleliste som sorterer seg selv når du nærmer deg butikken
           </h2>
           <Button to="/shopping-list/local" class="mt-4"
