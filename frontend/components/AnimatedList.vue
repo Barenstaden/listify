@@ -1,11 +1,5 @@
 <template>
-  <transition-group
-    tag="div"
-    enter-active-class="transform-gpu duration-500"
-    :enter-class="enterClass"
-    leave-active-class="transform-gpu duration-500"
-    leave-to-class="opacity-0"
-  >
+  <transition-group name="flip-list" :style="cssVars" tag="ul">
     <slot />
   </transition-group>
 </template>
@@ -13,15 +7,28 @@
 <script>
 export default {
   props: {
-    enter: String
+    enter: String,
+    duration: {
+      type: Number,
+      default: 0.5
+    }
   },
   computed: {
     enterClass() {
       if (!this.enter || this.enter == "down") return "-translate-y-full";
       else return "translate-y-full";
+    },
+    cssVars() {
+      return {
+        "--duration": `transform ${this.duration}s`
+      };
     }
   }
 };
 </script>
 
-<style></style>
+<style>
+.flip-list-move {
+  transition: var(--duration);
+}
+</style>

@@ -22,6 +22,8 @@
     "graphql-tag": "^2.12.5",
     "meilisearch": "^0.22.1",
     "nuxt": "^2.15.7",
+    "nuxt-socket-io": "^1.1.24",
+    "vue-and-devices-mocks": "^1.0.0",
     "vue-observe-visibility": "^1.0.0",
     "vuedraggable": "^2.24.3"
   },
@@ -36,6 +38,7 @@
     "eslint-plugin-vue": "^7.12.1",
     "nuxt-vite": "^0.1.3",
     "postcss": "^8.3.5",
+    "sass": "^1.43.2",
     "webpack-bundle-analyzer": "^4.4.2"
   }
 }

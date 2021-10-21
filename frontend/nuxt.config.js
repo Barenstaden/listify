@@ -87,7 +87,8 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    proxy: true
+    proxy: true,
+    baseUrl: "http://127.0.0.1:1337/"
   },
 
   proxy: {

@@ -10,8 +10,12 @@
     "name": {
       "type": "string"
     },
-    "category": {
-      "model": "category"
+    "grocery": {
+      "model": "grocery"
+    },
+    "purchased": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

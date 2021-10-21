@@ -30,13 +30,16 @@ export default {
     inputValue: String,
     human: {
       type: String
-    }
+    },
+    startIndex: Number
   },
   data: () => ({
     input: null
   }),
   mounted() {
-    this.input = this.items[0][this.inputValue];
+    this.input = this.startIndex
+      ? this.items[this.startIndex][this.inputValue]
+      : this.items[0][this.inputValue];
     this.$emit("input", this.input);
   }
 };

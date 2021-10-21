@@ -6,19 +6,19 @@
     <Input
       class="w-10/12"
       type="text"
-      @input="[triggerSearch(), (alreadyInList = false)]"
       v-model="item"
       placeholder="Trykk enter eller + for å legge til"
     />
     <button type="submit" class="text-3xl w-2/12">+</button>
     <InputSelect
-      v-if="categories && notFound"
+      v-if="categories && groceries && !groceries.length"
       label="Velg en kategori *"
       :items="categories"
       human="name"
       v-model="category"
       @change.native="addItem()"
       inputValue="id"
+      :startIndex="2"
       class="w-full text-left px-2 text-blue-900"
     ></InputSelect>
     <p class="text-red-600" v-if="alreadyInList">
@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import { MeiliSearch } from "meilisearch";
 import axios from "axios";
 import gql from "graphql-tag";
 export default {
@@ -39,101 +38,88 @@ export default {
     alreadyInList: false,
     item: "",
     category: null,
-    notFound: false,
-    updateCategory: false,
-    client: new MeiliSearch({
-      host:
-        process.client || process.browser
-          ? window.location.origin + "/search/"
-          : "/search/",
-      apiKey: "266e2d0f7855516b3bb47172c89c80b639f8e90cbe932b16d1e0dd7267754537"
-    })
+    grocery: null
   }),
-  created() {
-    this.client.index("category").updateSettings({
-      rankingRules: ["exactness", "words", "typo", "proximity", "attribute"]
-    });
-  },
   apollo: {
     categories: {
       query: gql`
         query categories {
           categories {
             name
-            groceries
+            groceries {
+              name
+            }
             id
           }
         }
       `
+    },
+    groceries: {
+      query: gql`
+        query groceries($name: String) {
+          groceries(where: { name_contains: $name }) {
+            name
+            id
+            category {
+              id
+              name
+            }
+          }
+        }
+      `,
+      // result: res => console.log(res),
+      skip: true,
+      debounce: 100,
+      variables() {
+        return {
+          name: this.item
+        };
+      }
     }
   },
   methods: {
     async addItem() {
-      if (!this.category && !this.notFound) await this.search();
-      if (!this.category)
-        return (this.notFound = true), (this.updateCategory = true);
-      if (typeof this.category === "string") {
-        this.category = this.categories.find(cat => cat.id == this.category);
+      if (!this.groceries.length && this.category) {
+        this.groceries.unshift(await this.addNewGrocery());
       }
-      const items = this.items.map(item => {
-        return {
-          name: item.name,
-          id: item.id,
-          category: item.category.id
-        };
-      });
-      items.unshift({
-        name: this.item,
-        category: this.category
-      });
+      let item = {
+        list: this.$route.params.list,
+        name: this.item
+      };
 
-      if (this.updateCategory) {
-        try {
-          const res = await axios({
-            url: `/api/categories/${this.category.id}`,
-            method: "put",
-            data: {
-              groceries: this.category.groceries + ", " + this.item
-            }
-          });
-        } catch (error) {
-          console.log(error);
-        }
-      }
-      try {
+      if (this.$route.params.list === "local") {
+        item.grocery = this.groceries[0];
+        item.id = this.items.length;
+        this.$emit("itemAdded", item);
+      } else {
+        item.grocery = this.groceries[0].id;
         const res = await axios({
-          url: `/api/shopping-lists/${this.$route.params.list}`,
-          method: "put",
-          data: {
-            shopping_list: items
-          }
+          method: "post",
+          url: "/api/add-item",
+          data: item
         });
-        this.$emit("itemAdded", res.data.shopping_list);
-      } catch (error) {
-        console.log(error);
+        this.$emit("itemAdded", res.data);
       }
       this.category = null;
-      this.updateCategory = false;
-      this.notFound = false;
       this.item = "";
     },
-    triggerSearch() {
-      clearTimeout(this.searchTimer);
-      this.searchTimer = setTimeout(() => {
-        this.search();
-      }, 500);
-    },
-    async search() {
-      return await this.client
-        .index("category")
-        .search(this.item, {
-          attributesToHighlight: ["groceries"]
-        })
-        .then(res => {
-          if (res.hits.length) {
-            this.category = res.hits[0];
-          }
-        });
+    async addNewGrocery() {
+      const category = this.categories.find(cat => cat.id == this.category);
+      return await axios({
+        method: "post",
+        url: "/api/groceries",
+        data: {
+          name: this.item,
+          category: category
+        }
+      }).then(res => res.data);
+    }
+  },
+  watch: {
+    item() {
+      this.item.length
+        ? this.$apollo.queries.groceries.start()
+        : this.$apollo.queries.groceries.stop();
     }
   }
 };

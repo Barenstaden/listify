@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "categories",
+  "collectionName": "groceries",
   "info": {
-    "name": "category",
+    "name": "grocery",
     "description": ""
   },
   "options": {
@@ -24,17 +24,9 @@
         }
       }
     },
-    "icon": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "string"
-    },
-    "groceries": {
-      "via": "category",
-      "collection": "grocery"
+    "category": {
+      "via": "groceries",
+      "model": "category"
     }
   }
 }

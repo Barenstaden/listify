@@ -19,6 +19,12 @@
       "type": "component",
       "repeatable": true,
       "component": "category.grocery-placement"
+    },
+    "latitude": {
+      "type": "float"
+    },
+    "longitude": {
+      "type": "float"
     }
   }
 }

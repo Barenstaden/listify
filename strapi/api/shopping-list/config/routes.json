@@ -33,9 +33,33 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/add-item",
+      "handler": "shopping-list.addItem",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "PUT",
       "path": "/shopping-lists/:id",
       "handler": "shopping-list.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/item-purchased/:list/:item",
+      "handler": "shopping-list.itemPurchased",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/remove-item/:list/:item",
+      "handler": "shopping-list.removeItem",
       "config": {
         "policies": []
       }
