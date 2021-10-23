@@ -29,7 +29,10 @@ module.exports = {
     const entity = await fetchList(list);
     if (!isOwner(entity.users)) return error(ctx);
     const groceries = entity.groceries.filter((grocery) => {
-      if (grocery.id == item) grocery.purchased = !grocery.purchased;
+      if (grocery.id == item) {
+        grocery.purchased = !grocery.purchased;
+        grocery.purchased_at = grocery.purchased ? new Date() : null;
+      }
       return item;
     });
     await updateList(list, groceries);

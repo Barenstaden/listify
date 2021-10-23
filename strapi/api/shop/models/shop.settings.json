@@ -25,6 +25,10 @@
     },
     "longitude": {
       "type": "float"
+    },
+    "new_store": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

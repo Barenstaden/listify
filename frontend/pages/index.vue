@@ -1,8 +1,8 @@
 <template>
   <div>
     <Content class="bg-gray-50 text-green-800">
-      <div class="grid lg:grid-cols-3">
-        <div class="lg:col-span-1 px-4 md:px-2 mt-10 md:mt-32">
+      <div class="grid md:grid-cols-5 items-center">
+        <div class="md:col-span-2 px-4 md:px-2 items-center">
           <h1 class="text-2xl font-semibold lg:text-4xl">
             Kanskje norges smarteste handleliste for
             {{ shops[selectedShop].name }}
@@ -11,15 +11,11 @@
             <!-- Trigger -->
             En handleliste som sorterer seg selv når du nærmer deg butikken
           </h2>
-          <Button to="/shopping-list/local" class="mt-4"
-            >Opprett handleliste</Button
-          >
+          <Button to="/shopping-list" class="mt-4">Opprett handleliste</Button>
         </div>
-        <div
-          class="lg:col-span-2 mx-auto -mt-12 md:mt-0 -mb-20 md:mb-0 -ml-6 md:ml-0"
-        >
+        <div class="md:col-span-3 mx-auto md:my-10">
           <FrontPageDevice
-            class="mx-auto transform scale-75 md:scale-100"
+            class="transform scale-75 md:scale-100"
             :items="itemsSortedByShop"
           />
         </div>

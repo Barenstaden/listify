@@ -2,7 +2,7 @@
   <Card class="max-w-screen-sm rounded-xl bg-white mx-auto text-center py-10">
     <div v-if="$store.state.userInfo">
       <h3 class="text-2xl">Du er allerede logget inn</h3>
-      <Button to="/cabins" class="mt-4">Gå til dine hytter</Button>
+      <Button to="/shopping-list" class="mt-4">Gå til din handleliste</Button>
       <Button class="ml-2" @click.native="$emit('loggedIn')" color="red"
         >Lukk</Button
       >
@@ -110,10 +110,10 @@ export default {
           identifier: this.email,
           password: this.password
         });
-        console.log(res.data.user);
+        this.$axios.setHeader("Authorization", `Bearer ${res.data.jwt}`);
         this.$apolloHelpers.onLogin(res.data.jwt);
         this.$store.commit("setUserInfo", res.data.user);
-        this.$emit("loggedIn");
+        this.$emit("loggedIn", res.data.user);
       } catch (error) {
         this.error = true;
       }

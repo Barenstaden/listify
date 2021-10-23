@@ -16,6 +16,9 @@
     "purchased": {
       "type": "boolean",
       "default": false
+    },
+    "purchased_at": {
+      "type": "datetime"
     }
   }
 }

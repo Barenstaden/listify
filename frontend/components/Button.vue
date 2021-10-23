@@ -1,6 +1,6 @@
 <template>
   <div class="inline-block m-auto">
-    <div v-if="to" class="mt-4">
+    <div v-if="to" class="inline-block">
       <router-link :class="[colors[color], size, classList]" :to="to">
         <slot />
       </router-link>

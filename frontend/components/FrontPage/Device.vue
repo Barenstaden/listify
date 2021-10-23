@@ -1,25 +1,23 @@
 <template>
-  <div class="device-wrapper my-10">
-    <div class="device device-iphone-x">
-      <div class="device-frame">
-        <div
-          class="bg-gradient-to-tr from-green-600 to-cyan-600 h-full"
-          style="border-radius: 50px 50px 0 0"
-        >
-          <FrontPageShoppingList
-            class="pt-14"
-            :duration="1"
-            :hidePurchased="true"
-            :items="items"
-          />
-        </div>
+  <div class="device device-iphone-x">
+    <div class="device-frame">
+      <div
+        class="bg-gradient-to-tr from-green-600 to-cyan-600 h-full"
+        style="border-radius: 50px 50px 0 0"
+      >
+        <FrontPageShoppingList
+          class="pt-14"
+          :duration="1"
+          :hidePurchased="true"
+          :items="items"
+        />
       </div>
-      <div class="device-stripe"></div>
-      <div class="device-header"></div>
-      <div class="device-sensors"></div>
-      <div class="device-btns"></div>
-      <div class="device-power"></div>
     </div>
+    <div class="device-stripe"></div>
+    <div class="device-header"></div>
+    <div class="device-sensors"></div>
+    <div class="device-btns"></div>
+    <div class="device-power"></div>
   </div>
 </template>
 
@@ -47,7 +45,6 @@ export default {
   position: relative;
   transform: scale(1);
   z-index: 1;
-  transform-origin: top center;
   // margin-bottom: calc((0.75 - 1) * 868px);
   // margin-right: calc((0.75 - 1) * 428px);
   // margin-left: -25px;

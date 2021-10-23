@@ -1,4 +1,17 @@
+const { sanitizeEntity } = require("strapi-utils");
+
 module.exports = {
+  async me(ctx) {
+    const { id } = ctx.state.user;
+    const entity = await strapi.plugins[
+      "users-permissions"
+    ].services.user.fetch({
+      id,
+    });
+    return sanitizeEntity(entity, {
+      model: strapi.plugins["users-permissions"].models.user,
+    });
+  },
   async find(ctx) {
     if (!Object.keys(ctx.query).length)
       return ctx.send("You are not allowed to list users.", 403);

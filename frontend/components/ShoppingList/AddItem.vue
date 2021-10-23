@@ -1,6 +1,6 @@
 <template>
   <form
-    class="lg:w-96 mx-auto shadow-xl bg-white rounded flex flex-wrap mb-2"
+    class="lg:w-96 mx-auto shadow-xl bg-white rounded flex flex-wrap"
     @submit.prevent="addItem"
   >
     <Input
@@ -32,7 +32,8 @@ import axios from "axios";
 import gql from "graphql-tag";
 export default {
   props: {
-    items: Array
+    items: Array,
+    categories: Array
   },
   data: () => ({
     alreadyInList: false,
@@ -41,19 +42,6 @@ export default {
     grocery: null
   }),
   apollo: {
-    categories: {
-      query: gql`
-        query categories {
-          categories {
-            name
-            groceries {
-              name
-            }
-            id
-          }
-        }
-      `
-    },
     groceries: {
       query: gql`
         query groceries($name: String) {
@@ -82,24 +70,16 @@ export default {
       if (!this.groceries.length && this.category) {
         this.groceries.unshift(await this.addNewGrocery());
       }
-      let item = {
-        list: this.$route.params.list,
-        name: this.item
-      };
-
-      if (this.$route.params.list === "local") {
-        item.grocery = this.groceries[0];
-        item.id = this.items.length;
-        this.$emit("itemAdded", item);
-      } else {
-        item.grocery = this.groceries[0].id;
-        const res = await axios({
-          method: "post",
-          url: "/api/add-item",
-          data: item
-        });
-        this.$emit("itemAdded", res.data);
-      }
+      const res = await axios({
+        method: "post",
+        url: "/api/add-item",
+        data: {
+          list: this.$route.params.list,
+          name: this.item,
+          grocery: this.groceries[0].id
+        }
+      });
+      this.$emit("itemAdded", res.data);
       this.category = null;
       this.item = "";
     },
