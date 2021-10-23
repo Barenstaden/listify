@@ -70,7 +70,7 @@ export default {
       if (!this.groceries.length && this.category) {
         this.groceries.unshift(await this.addNewGrocery());
       }
-      const res = await axios({
+      const res = await this.$axios({
         method: "post",
         url: "/api/add-item",
         data: {
@@ -85,7 +85,7 @@ export default {
     },
     async addNewGrocery() {
       const category = this.categories.find(cat => cat.id == this.category);
-      return await axios({
+      return await this.$axios({
         method: "post",
         url: "/api/groceries",
         data: {

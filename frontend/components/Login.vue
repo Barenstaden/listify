@@ -96,7 +96,7 @@ export default {
       if (this.username) return this.login();
       if (this.email && this.password && !this.username) return this.register();
       try {
-        this.username = await axios
+        this.username = await this.$axios
           .get(`/api/users?email=${this.email}`)
           .then(res => res.data[0]);
       } catch (error) {
@@ -106,7 +106,7 @@ export default {
     },
     async login() {
       try {
-        const res = await axios.post("/auth/local", {
+        const res = await this.$axios.post("/auth/local", {
           identifier: this.email,
           password: this.password
         });
@@ -155,7 +155,7 @@ export default {
     },
     async forgotPassword() {
       this.loading = true;
-      const res = await axios.post("/auth/forgot-password", {
+      const res = await this.$axios.post("/auth/forgot-password", {
         email: this.email
       });
       this.resetPasswordSent = res.data.ok;
