@@ -75,7 +75,7 @@ export default {
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: `${process.env.STRAPI_URL}/graphql`
+        httpEndpoint: "http://127.0.0.1:1337/graphql"`
       }
     },
     defaultOptions: {
@@ -88,7 +88,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     proxy: true,
-    baseUrl: process.env.STRAPI_URL
+    baseUrl: "http://127.0.0.1:1337/"
   },
 
   proxy: {
