@@ -72,7 +72,7 @@ export default {
       }
       const res = await this.$axios({
         method: "post",
-        url: "/api/add-item",
+        url: "/add-item",
         data: {
           list: this.$route.params.list,
           name: this.item,
@@ -87,7 +87,7 @@ export default {
       const category = this.categories.find(cat => cat.id == this.category);
       return await this.$axios({
         method: "post",
-        url: "/api/groceries",
+        url: "/groceries",
         data: {
           name: this.item,
           category: category

@@ -97,7 +97,7 @@ export default {
       if (this.email && this.password && !this.username) return this.register();
       try {
         this.username = await this.$axios
-          .get(`/api/users?email=${this.email}`)
+          .get(`/users?email=${this.email}`)
           .then(res => res.data[0]);
       } catch (error) {
         this.newUser = true;
