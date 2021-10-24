@@ -13,7 +13,6 @@ module.exports = {
     entity.groceries.unshift({ name, grocery, purchased: false });
     const updatedList = await updateList(list, entity.groceries);
     ctx.send(updatedList.groceries[0]);
-    // ctx.send(await updateList(list, entity.groceries));
   },
   async removeItem(ctx) {
     const { list, item, user } = ctx.params;
@@ -24,7 +23,6 @@ module.exports = {
     ctx.send("Updated", 204);
   },
   async itemPurchased(ctx) {
-    const { state } = ctx;
     const { list, item } = ctx.params;
     const entity = await fetchList(list);
     if (!isOwner(entity.users)) return error(ctx);
