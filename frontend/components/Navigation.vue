@@ -1,6 +1,6 @@
 <template>
-  <div class="grid grid-cols-12 h-16 items-center bg-gray-50 border-b-2">
-    <router-link class="inline-block w-40 text-2xl font-semibold ml-10" to="/"
+  <div class="flex h-16 items-center bg-gray-50 border-b-2">
+    <router-link class="w-40 my-auto text-2xl font-semibold ml-10" to="/"
       >Listify</router-link
     >
     <Button
@@ -13,13 +13,13 @@
         ]
       "
       color="red"
-      class="col-span-2 col-start-11 items-right float-right"
+      class="items-right float-right"
       >Logg ut</Button
     >
     <Button
       v-if="!$apolloHelpers.getToken() && !$store.state.userInfo"
       to="/login"
-      class="col-span-2 col-start-11 items-right float-right"
+      class="items-right float-right"
       >Logg inn</Button
     >
   </div>
