@@ -10,7 +10,7 @@ export default {
     enter: String,
     duration: {
       type: Number,
-      default: 0.5
+      default: 0.2
     }
   },
   computed: {

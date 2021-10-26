@@ -1,28 +1,30 @@
 <template>
-  <div class="flex h-16 items-center bg-gray-50 border-b-2">
-    <router-link class="w-40 my-auto text-2xl font-semibold ml-10" to="/"
-      >Listify</router-link
-    >
-    <Button
-      v-if="$apolloHelpers.getToken() && $store.state.userInfo"
-      @click.native="
-        [
-          $apolloHelpers.onLogout(),
-          $router.push('/'),
-          $store.commit('deleteUserInfo')
-        ]
-      "
-      color="red"
-      class="items-right float-right"
-      >Logg ut</Button
-    >
-    <Button
-      v-if="!$apolloHelpers.getToken() && !$store.state.userInfo"
-      to="/login"
-      class="items-right float-right"
-      >Logg inn</Button
-    >
-  </div>
+  <nav class="grid grid-flow-col w-full h-16 bg-gray-50 border-b-2 my-auto">
+    <div class="col-span-3 my-auto">
+      <router-link class="text-2xl font-semibold ml-10" to="/"
+        >Listify</router-link
+      >
+    </div>
+    <div class="grid justify-end mr-6">
+      <Button
+        v-if="$apolloHelpers.getToken() && $store.state.userInfo"
+        @click.native="
+          [
+            $apolloHelpers.onLogout(),
+            $router.push('/'),
+            $store.commit('deleteUserInfo')
+          ]
+        "
+        color="red"
+        >Logg ut</Button
+      >
+      <Button
+        v-if="!$apolloHelpers.getToken() && !$store.state.userInfo"
+        to="/login"
+        >Logg inn</Button
+      >
+    </div>
+  </nav>
 </template>
 
 <script>

@@ -43,7 +43,6 @@ export default {
 
 .device {
   position: relative;
-  transform: scale(1);
   z-index: 1;
   // margin-bottom: calc((0.75 - 1) * 868px);
   // margin-right: calc((0.75 - 1) * 428px);

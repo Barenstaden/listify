@@ -2,7 +2,7 @@
   <div>
     <Content class="bg-gray-50 text-green-800">
       <div class="grid md:grid-cols-5 items-center">
-        <div class="md:col-span-2 px-4 md:px-2 items-center">
+        <div class="my-10 md:col-span-2 px-4 md:px-2 items-center">
           <h1 class="text-2xl font-semibold lg:text-4xl">
             Kanskje norges smarteste handleliste for
             <span class="font-black" :class="shops[selectedShop].color">{{
@@ -17,7 +17,7 @@
         </div>
         <div class="md:col-span-3 mx-auto md:my-10">
           <FrontPageDevice
-            class="transform scale-75 md:scale-100"
+            class="transform scale-90 md:scale-100 -ml-5 -mb-2 -mt-4 md:ml-0 md:mb-0 md:mt-0"
             :items="itemsSortedByShop"
           />
         </div>
