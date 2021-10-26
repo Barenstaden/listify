@@ -5,7 +5,9 @@
         <div class="md:col-span-2 px-4 md:px-2 items-center">
           <h1 class="text-2xl font-semibold lg:text-4xl">
             Kanskje norges smarteste handleliste for
-            {{ shops[selectedShop].name }}
+            <span class="font-black" :class="shops[selectedShop].color">{{
+              shops[selectedShop].name
+            }}</span>
           </h1>
           <h2 class="text-xl lg:text-2xl mt-4">
             <!-- Trigger -->
@@ -82,23 +84,28 @@ export default {
     shops: [
       {
         name: "Meny",
-        sort: [1, 4, 2, 3, 5]
+        sort: [1, 4, 2, 3, 5],
+        color: "text-red-600"
       },
       {
         name: "Kiwi",
-        sort: [2, 1, 5, 3, 4]
+        sort: [2, 1, 5, 3, 4],
+        color: "text-green-500"
       },
       {
         name: "Rema 1000",
-        sort: [5, 2, 3, 1, 4]
+        sort: [5, 2, 3, 1, 4],
+        color: "text-blue-500"
       },
       {
         name: "Bunnpris",
-        sort: [4, 1, 5, 3, 2]
+        sort: [4, 1, 5, 3, 2],
+        color: "text-gray-900"
       },
       {
         name: "Coop Mega",
-        sort: [3, 5, 1, 4, 2]
+        sort: [3, 5, 1, 4, 2],
+        color: "text-blue-700"
       }
     ],
     selectedShop: 0,

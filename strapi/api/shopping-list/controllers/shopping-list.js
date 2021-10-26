@@ -23,13 +23,15 @@ module.exports = {
     ctx.send("Updated", 204);
   },
   async itemPurchased(ctx) {
-    const { list, item } = ctx.params;
+    const { list, item, latitude, longitude } = ctx.request.body;
     const entity = await fetchList(list);
     if (!isOwner(entity.users)) return error(ctx);
     const groceries = entity.groceries.filter((grocery) => {
       if (grocery.id == item) {
         grocery.purchased = !grocery.purchased;
         grocery.purchased_at = grocery.purchased ? new Date() : null;
+        grocery.latitude = grocery.purchased ? latitude : null;
+        grocery.longitude = grocery.purchased ? longitude : null;
       }
       return item;
     });

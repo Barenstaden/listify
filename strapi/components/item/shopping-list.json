@@ -19,6 +19,12 @@
     },
     "purchased_at": {
       "type": "datetime"
+    },
+    "latitude": {
+      "type": "float"
+    },
+    "longitude": {
+      "type": "float"
     }
   }
 }

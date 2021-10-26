@@ -50,7 +50,7 @@
     },
     {
       "method": "PUT",
-      "path": "/item-purchased/:list/:item",
+      "path": "/item-purchased",
       "handler": "shopping-list.itemPurchased",
       "config": {
         "policies": []
