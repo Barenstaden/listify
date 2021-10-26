@@ -1,5 +1,7 @@
 <template>
-  <Card class="max-w-screen-sm rounded-xl bg-white mx-auto text-center py-10">
+  <Card
+    class="max-w-screen-sm rounded-xl bg-white mx-auto text-center py-4 md:py-10"
+  >
     <div v-if="$store.state.userInfo">
       <h3 class="text-2xl">Du er allerede logget inn</h3>
       <Button to="/shopping-list" class="mt-4">Gå til din handleliste</Button>
@@ -19,7 +21,7 @@
       <form
         v-if="!resetPasswordSent && !$store.state.userInfo"
         @submit.prevent="checkEmail()"
-        class="px-10 pt-10"
+        class="px-2 md:px-10 md:pt-10"
       >
         <Input
           v-model="email"
