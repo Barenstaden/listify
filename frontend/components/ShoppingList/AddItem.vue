@@ -90,7 +90,8 @@ export default {
         url: "/groceries",
         data: {
           name: this.item,
-          category: category
+          category: category,
+          times_added: 1
         }
       }).then(res => res.data);
     }
