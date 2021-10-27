@@ -18,7 +18,7 @@
       v-model="category"
       @change.native="addItem()"
       inputValue="id"
-      :startIndex="2"
+      :startIndex="lastUsedCategory()"
       class="w-full text-left px-2 text-blue-900"
     ></InputSelect>
     <p class="text-red-600" v-if="alreadyInList">
@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import gql from "graphql-tag";
 export default {
   props: {
@@ -44,8 +43,8 @@ export default {
   apollo: {
     groceries: {
       query: gql`
-        query groceries($name: String) {
-          groceries(where: { name_contains: $name }) {
+        query groceries($name: [String]) {
+          groceries(where: { name_in: $name }) {
             name
             id
             category {
@@ -55,12 +54,12 @@ export default {
           }
         }
       `,
-      // result: res => console.log(res),
       skip: true,
       debounce: 100,
       variables() {
+        console.log(this.searchWord);
         return {
-          name: this.item
+          name: this.searchWord
         };
       }
     }
@@ -94,6 +93,55 @@ export default {
           times_added: 1
         }
       }).then(res => res.data);
+    },
+    lastUsedCategory() {
+      if (!this.items.length) return 0;
+      console.log(
+        this.items[0].grocery.category.id || this.items[0].grocery.category
+      );
+      return this.categories.findIndex(
+        c =>
+          c.id == this.items[0].grocery.category.id ||
+          parseInt(this.items[0].grocery.category)
+      );
+    }
+  },
+  computed: {
+    searchWord() {
+      const wordsToRemove = [
+        "stk",
+        "ltr",
+        "l",
+        "pakke",
+        "pakker",
+        "kartong",
+        "boks",
+        "pose",
+        "flaske",
+        "rull",
+        "liter",
+        "stykker",
+        "en",
+        "to",
+        "x"
+      ];
+      const searchWord = wordsToRemove.reduce((searchWord, word) => {
+        if (searchWord.includes(word)) {
+          searchWord.splice(
+            searchWord.findIndex(w => w == word),
+            1
+          );
+        }
+        return searchWord;
+      }, this.item.split(" "));
+
+      return searchWord.map(word => {
+        word = word.replace(/[0-9]/g, "").toLowerCase();
+        if (word.endsWith("er")) {
+          word = word.substring(0, word.length - 2);
+        }
+        return word;
+      });
     }
   },
   watch: {

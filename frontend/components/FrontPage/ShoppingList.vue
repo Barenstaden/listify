@@ -4,8 +4,19 @@
       class="bg-gray-100 m-auto shadow my-0.5 p-3 text-left rounded capitalize flex"
       v-for="item in items"
       :key="item.name"
+      @click="
+        [
+          (item.purchased = !item.purchased),
+          item.purchased
+            ? (item.purchased_at = new Date())
+            : (item.purchased_at = null)
+        ]
+      "
     >
-      <p class="w-11/12 cursor-pointer">
+      <p
+        class="w-11/12 cursor-pointer"
+        :class="item.purchased ? 'line-through' : ''"
+      >
         {{ item.name }}
       </p>
       <InputCheckbox :icon="item.purchased && !hidePurchased ? 'check' : ''" />

@@ -11,7 +11,7 @@
           </h1>
           <h2 class="text-xl lg:text-2xl mt-4">
             <!-- Trigger -->
-            En handleliste som sorterer seg selv når du nærmer deg butikken
+            En handleliste som sorteres automatisk når du kommer på butikken
           </h2>
           <Button to="/shopping-list" class="mt-4">Opprett handleliste</Button>
         </div>
@@ -23,25 +23,77 @@
         </div>
       </div>
     </Content>
-    <Content class="text-white mt-20 text-center">
-      <h2 class="text-3xl"></h2>
-    </Content>
+
     <Content class="text-white md:-mt-3">
       <div
-        class="lg:grid lg:grid-cols-3 gap-4 pt-4 pb-10 lg:py-20 items-center"
+        class="lg:grid lg:grid-cols-3 gap-8 pt-4 pb-10 lg:py-20 items-center"
       >
         <div
           class="col-span-1 text-gray-900 bg-green-500 lg:w-64 mx-auto p-2 rounded-xl shadow-xl transform -rotate-2"
         >
           <div class="transform rotate-2 bg-gray-100 rounded-xl shadow">
-            <FrontPageShoppingList :duration="1" :items="purchasingItems" />
+            <FrontPageShoppingList :duration="0.5" :items="purchasingItems" />
           </div>
         </div>
-        <!-- <div class="lg:col-span-2">
-          <h2 class="text-4xl">Del lister</h2>
-          <p class="text-xl"></p>
-        </div> -->
+
+        <div class="col-span-2 lg:w-2/3 mx-auto">
+          <h2 class="text-3xl">
+            Del med venner og familie
+          </h2>
+          <p class="text-xl mt-4">
+            Listify lar deg enkelt dele handlelisten med venner og familie, helt
+            uten at de trenger å laste ned en app - bare del linken til
+            handelisten.
+          </p>
+          <Button to="/shopping-list" color="white" class="mt-6"
+            >Kom i gang</Button
+          >
+        </div>
+
+        <!-- <AnimatedList>
+          <div
+            v-for="item in purchasedItems"
+            class="bg-white p-3 my-1 rounded text-gray-900"
+            :key="item.name"
+          >
+            <p class="text-xs">
+              {{ $dayjs(item.purchased_at).format("HH:mm") }}
+            </p>
+            Ola kjøpte {{ item.name.toLowerCase() }}
+          </div>
+        </AnimatedList> -->
       </div>
+    </Content>
+    <Content class="py-20 text-gray-800 bg-gray-100">
+      <div class="grid grid-cols-3 gap-8">
+        <div class="col-span-3 md:col-span-2">
+          <h2 class="text-3xl">Enklere blir det ikke</h2>
+          <p class="py-2 text-xl">
+            Helt uten at du merker noe vil Listify hente data om varen i
+            bakgrunnen og gjøre klart for din neste handletur. Når du er på
+            butikken har Listify automatisk sortert varene etter plassering i
+            butikken.
+          </p>
+          <p class="text-sm">
+            Listify lærer mens du handler, og vil ikke alltid være sortert
+            første gang du besøker en butikk.
+          </p>
+        </div>
+        <FrontPageAddItem
+          class="border-2 border-green-500  rounded-xl p-3 text-gray-900"
+        />
+      </div>
+    </Content>
+    <Content class="py-20 text-white">
+      <h2 class="text-3xl">Dekker Listify min butikk?</h2>
+      <p class="py-2 text-xl">
+        Listify lærer mens du handler og blir bedre jo mer det blir handlet i en
+        butikk. Bli med å gjøre Listify enda bedre ved å opprette en
+        handleliste!
+      </p>
+      <Button to="/shopping-list" color="white" class="mt-4"
+        >Opprett handleliste</Button
+      >
     </Content>
   </div>
 </template>
@@ -115,9 +167,6 @@ export default {
   mounted() {
     this.notPurchasedItems = this.shoppingList.length;
     setInterval(() => {
-      this.mix();
-    }, 3000);
-    setInterval(() => {
       if (this.selectedShop == this.shops.length - 1) {
         this.selectedShop = 0;
       } else {
@@ -126,18 +175,6 @@ export default {
     }, 4000);
   },
   methods: {
-    mix() {
-      let random = Math.floor(Math.random() * this.notPurchasedItems);
-      this.shoppingList[random].purchased = !this.shoppingList[random]
-        .purchased;
-      if (this.notPurchasedItems === 0) {
-        this.purchasing = false;
-        this.notPurchasedItems = this.shoppingList.length - 1;
-      } else {
-        this.purchasing = true;
-      }
-      this.purchasing ? this.notPurchasedItems-- : this.notPurchasedItems++;
-    },
     findIndexOfCategory(idToFind) {
       return this.shops[this.selectedShop].sort.findIndex(id => id == idToFind);
     }
@@ -145,11 +182,14 @@ export default {
   computed: {
     purchasingItems() {
       return this.shoppingList.concat().sort((a, b) => {
-        if (a.purchased || b.purchased) {
-          return a.purchased - b.purchased;
-        }
-        return a.category - b.category;
+        return a.purchased - b.purchased;
       });
+    },
+    purchasedItems() {
+      return this.purchasingItems
+        .filter(i => i.purchased)
+        .concat()
+        .sort((a, b) => a.purchased_at - b.purchased_at);
     },
     itemsSortedByShop() {
       return this.shoppingList.concat().sort((a, b) => {
