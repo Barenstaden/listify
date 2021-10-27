@@ -35,6 +35,14 @@
     "groceries": {
       "via": "category",
       "collection": "grocery"
+    },
+    "times_added": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "biginteger"
     }
   }
 }

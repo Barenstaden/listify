@@ -23,6 +23,7 @@
     "meilisearch": "^0.22.1",
     "nuxt": "^2.15.7",
     "nuxt-socket-io": "^1.1.24",
+    "socket.io-client": "^4.3.2",
     "vue-and-devices-mocks": "^1.0.0",
     "vue-observe-visibility": "^1.0.0",
     "vuedraggable": "^2.24.3"

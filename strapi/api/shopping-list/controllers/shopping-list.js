@@ -8,11 +8,19 @@
 module.exports = {
   async addItem(ctx) {
     const { list, name, grocery } = ctx.request.body;
+    console.log(grocery);
     const entity = await fetchList(list);
     if (!isOwner(entity.users)) return error(ctx);
     entity.groceries.unshift({ name, grocery, purchased: false });
     const updatedList = await updateList(list, entity.groceries);
     ctx.send(updatedList.groceries[0]);
+    strapi
+      .query("grocery")
+      .model.query((qb) => {
+        qb.where("id", grocery);
+        qb.increment("times_added", 1);
+      })
+      .fetch();
   },
   async removeItem(ctx) {
     const { list, item, user } = ctx.params;
