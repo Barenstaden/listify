@@ -2,7 +2,11 @@
   <nav class="grid grid-flow-col w-full h-16 bg-gray-50 border-b-2 my-auto">
     <div class="col-span-3 my-auto">
       <router-link class="text-2xl font-semibold ml-10" to="/"
-        >Listify <span class="text-xs">Beta</span></router-link
+        >Listify
+        <span
+          class="text-xs text-white bg-cyan-500 rounded font-light px-2 py-0.5"
+          >Beta</span
+        ></router-link
       >
     </div>
     <div class="grid justify-end mr-6">
