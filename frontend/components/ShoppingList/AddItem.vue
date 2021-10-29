@@ -22,7 +22,6 @@
         placeholder="Velg en kategori"
       ></v-select>
       <button
-        @click="addItem()"
         class="col-span-3 text-white font-semibold bg-green-600 rounded"
         style="height: 34px"
       >
