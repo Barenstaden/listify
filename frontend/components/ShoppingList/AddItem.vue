@@ -3,6 +3,7 @@
     class="lg:w-96 mx-auto shadow-xl bg-white rounded flex flex-wrap"
     @submit.prevent="addItem"
   >
+    <!-- Test -->
     <Input
       class="w-10/12"
       type="text"
