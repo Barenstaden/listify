@@ -130,18 +130,16 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  // test to
   build: {
     // analyze: true,
     parallel: true,
     hardSource: true,
-    cache: true,
-    babel: {
-      plugins: [
-        ["@babel/plugin-proposal-private-methods", { loose: true }],
-        ["@babel/plugin-proposal-private-property-in-object", { loose: true }]
-      ]
-    },
-    transpile: ["@sindresorhus/slugify"]
+    cache: true
+    // babel: {
+    //   plugins: [
+    //     ["@babel/plugin-proposal-private-methods", { loose: true }],
+    //     ["@babel/plugin-proposal-private-property-in-object", { loose: true }]
+    //   ]
+    // },
   }
 };
