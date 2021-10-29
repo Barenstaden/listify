@@ -57,7 +57,7 @@ export default {
   ],
 
   vite: {
-    build: true
+    build: false
   },
 
   dayjs: {
