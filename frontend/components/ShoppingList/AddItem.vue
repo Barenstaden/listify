@@ -152,19 +152,22 @@ export default {
         return searchWord;
       }, this.item.split(" "));
 
-      return searchWord.filter(word => {
+      return searchWord.reduce((words, word) => {
         word = word.replace(/[0-9]/g, "").toLowerCase();
         if (word.endsWith("er")) {
           word = word.substring(0, word.length - 2);
         }
-        if (word.length) return word;
-      });
+
+        if (word.length) words.push(word);
+        return words;
+      }, []);
     }
   },
   watch: {
     searchWord() {
       clearTimeout(this.searchTimer);
       this.searchTimer = setTimeout(() => {
+        console.log(this.searchWord, this.searchWord.length);
         this.searchWord.length
           ? this.$apollo.queries.groceries.start()
           : this.$apollo.queries.groceries.stop();
