@@ -9,7 +9,12 @@
         ></router-link
       >
     </div>
-    <div class="grid justify-end mr-6">
+    <div
+      class="grid grid-flow-col justify-end mr-6 items-center gap-8 font-semibold"
+    >
+      <div>
+        <nuxt-link to="/about">Om Listify</nuxt-link>
+      </div>
       <Button
         v-if="$apolloHelpers.getToken() && $store.state.userInfo"
         @click.native="
