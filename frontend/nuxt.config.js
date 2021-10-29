@@ -131,13 +131,29 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    // analyze: true,
-    // parallel: true,
-    // hardSource: true,
+    analyze: false,
+    parallel: true,
     cache: true,
+    hardSource: false,
+    splitChunks: {
+      layouts: false,
+      pages: false,
+      components: false
+    },
+    html: {
+      minify: {
+        minifyCSS: false,
+        minifyJS: false
+      }
+    },
     loaders: {
       vue: {
         prettify: false
+      }
+    },
+    extend(config, ctx) {
+      if (ctx.isDev) {
+        config.devtool = ctx.isClient ? "source-map" : "inline-source-map";
       }
     }
     // babel: {
