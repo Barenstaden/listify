@@ -132,24 +132,7 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   //
   build: {
-    cache: true,
-    splitChunks: {
-      layouts: false,
-      pages: false,
-      components: false
-    },
-    html: {
-      minify: {
-        minifyCSS: false,
-        minifyJS: false
-      }
-    },
-    loaders: {
-      vue: {
-        prettify: false
-      }
-    }
-
+    cache: true
     // babel: {
     //   plugins: [
     //     ["@babel/plugin-proposal-private-methods", { loose: true }],
