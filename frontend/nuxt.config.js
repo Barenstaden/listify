@@ -129,11 +129,10 @@ export default {
     }
   },
 
+  // Build Configuration: https://go.nuxtjs.dev/config-build
+  //
   build: {
-    analyze: false,
-    parallel: false,
     cache: true,
-    hardSource: false,
     splitChunks: {
       layouts: false,
       pages: false,
@@ -150,6 +149,7 @@ export default {
         prettify: false
       }
     }
+
     // babel: {
     //   plugins: [
     //     ["@babel/plugin-proposal-private-methods", { loose: true }],
