@@ -16,7 +16,7 @@ export default {
         hid: "description",
         name: "description",
         content:
-          "Gjør det enkelt å dele hytta med andre. Inviter søsken, venner og bekjente og organiser hytteturer helt enkelt."
+          "Spar tid på butikken med en smart handleliste som sorterer seg automatisk etter butikken du handler i. Del handleliste med venner og familie - helt uten apper."
       },
       { name: "format-detection", content: "telephone=no" }
     ],

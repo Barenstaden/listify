@@ -10,17 +10,28 @@
       placeholder="Trykk enter eller + for å legge til"
     />
     <button type="submit" class="text-3xl w-2/12">+</button>
-    <InputSelect
+    <div
+      class="w-full grid grid-cols-12 mb-3 px-3 gap-x-2"
       v-if="categories && groceries && !groceries.length"
-      label="Velg en kategori *"
-      :items="categories"
-      human="name"
-      v-model="category"
-      @change.native="addItem()"
-      inputValue="id"
-      :startIndex="lastUsedCategory()"
-      class="w-full text-left px-2 text-blue-900"
-    ></InputSelect>
+    >
+      <v-select
+        label="name"
+        :options="categories"
+        v-model="category"
+        class="col-span-9 text-left"
+        placeholder="Velg en kategori"
+      ></v-select>
+      <button
+        @click="addItem()"
+        class="col-span-3 text-white font-semibold bg-green-600 rounded"
+        style="height: 34px"
+      >
+        Lagre
+      </button>
+      <p v-if="missingCategory" class="col-span-12 text-red-900 text-sm">
+        Du må velge en kategori
+      </p>
+    </div>
     <p class="text-red-600" v-if="alreadyInList">
       Varen finnes allerede i handlelisten
     </p>
@@ -28,6 +39,10 @@
 </template>
 
 <script>
+import Vue from "vue";
+import vSelect from "vue-select";
+Vue.component("v-select", vSelect);
+import "vue-select/dist/vue-select.css";
 import gql from "graphql-tag";
 export default {
   props: {
@@ -38,7 +53,9 @@ export default {
     alreadyInList: false,
     item: "",
     category: null,
-    grocery: null
+    missingCategory: false,
+    grocery: null,
+    searchTimer: 0
   }),
   apollo: {
     groceries: {
@@ -55,7 +72,7 @@ export default {
         }
       `,
       skip: true,
-      debounce: 100,
+      result: res => console.log(res.data),
       variables() {
         console.log(this.searchWord);
         return {
@@ -66,6 +83,7 @@ export default {
   },
   methods: {
     async addItem() {
+      if (!this.category) return (this.missingCategory = true);
       if (!this.groceries.length && this.category) {
         this.groceries.unshift(await this.addNewGrocery());
       }
@@ -88,7 +106,7 @@ export default {
         method: "post",
         url: "/groceries",
         data: {
-          name: this.item,
+          name: this.item.toLowerCase(),
           category: category,
           times_added: 1
         }
@@ -135,20 +153,23 @@ export default {
         return searchWord;
       }, this.item.split(" "));
 
-      return searchWord.map(word => {
+      return searchWord.filter(word => {
         word = word.replace(/[0-9]/g, "").toLowerCase();
         if (word.endsWith("er")) {
           word = word.substring(0, word.length - 2);
         }
-        return word;
+        if (word.length) return word;
       });
     }
   },
   watch: {
-    item() {
-      this.item.length
-        ? this.$apollo.queries.groceries.start()
-        : this.$apollo.queries.groceries.stop();
+    searchWord() {
+      clearTimeout(this.searchTimer);
+      this.searchTimer = setTimeout(() => {
+        this.searchWord.length
+          ? this.$apollo.queries.groceries.start()
+          : this.$apollo.queries.groceries.stop();
+      }, 500);
     }
   }
 };

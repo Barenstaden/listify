@@ -4,7 +4,7 @@
       label
     }}</label>
     <input
-      class="w-full bg-transparent p-4 mt-2"
+      class="w-full bg-transparent p-4"
       :type="type"
       :placeholder="
         placeholder ? placeholder : 'Fyll inn ' + label.toLowerCase()
