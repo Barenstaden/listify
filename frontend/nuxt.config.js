@@ -131,7 +131,7 @@ export default {
 
   build: {
     analyze: false,
-    parallel: true,
+    parallel: false,
     cache: true,
     hardSource: false,
     splitChunks: {
