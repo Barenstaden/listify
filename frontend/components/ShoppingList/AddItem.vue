@@ -1,7 +1,7 @@
 <template>
   <form
     class="lg:w-96 mx-auto shadow-xl bg-white rounded flex flex-wrap"
-    @submit.prevent="addItem"
+    @submit.prevent="addItem()"
   >
     <Input
       class="w-10/12"
@@ -82,7 +82,6 @@ export default {
   },
   methods: {
     async addItem() {
-      if (!this.category) return (this.missingCategory = true);
       if (!this.groceries.length && this.category) {
         this.groceries.unshift(await this.addNewGrocery());
       }
