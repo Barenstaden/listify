@@ -130,6 +130,7 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
+  //
   build: {
     analyze: false,
     parallel: true,
@@ -149,11 +150,6 @@ export default {
     loaders: {
       vue: {
         prettify: false
-      }
-    },
-    extend(config, ctx) {
-      if (ctx.isDev) {
-        config.devtool = ctx.isClient ? "source-map" : "inline-source-map";
       }
     }
     // babel: {
