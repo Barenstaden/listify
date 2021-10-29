@@ -130,6 +130,7 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
+  // test to
   build: {
     // analyze: true,
     parallel: true,
