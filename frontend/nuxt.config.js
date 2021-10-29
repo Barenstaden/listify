@@ -134,7 +134,12 @@ export default {
     // analyze: true,
     // parallel: true,
     // hardSource: true,
-    cache: true
+    cache: true,
+    loaders: {
+      vue: {
+        prettify: false
+      }
+    }
     // babel: {
     //   plugins: [
     //     ["@babel/plugin-proposal-private-methods", { loose: true }],
