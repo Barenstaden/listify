@@ -25,18 +25,16 @@
     </Content>
 
     <Content class="text-white md:-mt-3">
-      <div
-        class="lg:grid lg:grid-cols-3 gap-8 pt-4 pb-10 lg:py-20 items-center"
-      >
+      <div class="grid lg:grid-cols-3 gap-8 pt-4 pb-10 lg:py-20 items-center">
         <div
-          class="col-span-1 text-gray-900 bg-green-500 lg:w-64 mx-auto p-2 rounded-xl shadow-xl transform -rotate-2"
+          class="col-span-3 lg:col-span-1 w-full text-gray-900 bg-green-500 lg:w-64 mx-auto p-2 rounded-xl shadow-xl transform -rotate-2"
         >
           <div class="transform rotate-2 bg-gray-100 rounded-xl shadow">
             <FrontPageShoppingList :duration="0.5" :items="purchasingItems" />
           </div>
         </div>
 
-        <div class="col-span-2 lg:w-2/3 mx-auto">
+        <div class="mt-8 row-start-1 col-span-2 lg:w-2/3 mx-auto">
           <h2 class="text-3xl">
             Del med venner og familie
           </h2>
@@ -80,7 +78,7 @@
           </p>
         </div>
         <FrontPageAddItem
-          class="border-2 border-green-500  rounded-xl p-3 text-gray-900"
+          class="border-2 col-span-3 lg:col-span-1 border-green-500  rounded-xl p-3 text-gray-900"
         />
       </div>
     </Content>

@@ -29,6 +29,23 @@ export default {
     linkActiveClass: "active-link",
     linkExactActiveClass: "active-link"
   },
+  pwa: {
+    manifest: {
+      name: "Listify",
+      lang: "nb",
+      useWebmanifestExtension: false
+    }
+  },
+
+  // oneSignal: {
+  //   init: {
+  //     appId: "aa8695ac-2bfe-4c20-bb73-601b7cae49b8",
+  //     allowLocalhostAsSecureOrigin: true,
+  //     welcomeNotification: {
+  //       disable: true
+  //     }
+  //   }
+  // },
 
   css: ["@fortawesome/fontawesome-svg-core/styles.css"],
 
@@ -53,7 +70,15 @@ export default {
     "@nuxtjs/tailwindcss",
     "nuxt-vite",
     "@nuxtjs/dayjs",
-    "@nuxtjs/device"
+    "@nuxtjs/device",
+    // "@nuxtjs/onesignal",
+    "@nuxtjs/pwa"
+  ],
+  // Modules: https://go.nuxtjs.dev/config-modules
+  modules: [
+    // https://go.nuxtjs.dev/axios
+    "@nuxtjs/axios",
+    "@nuxtjs/apollo"
   ],
 
   vite: {
@@ -64,13 +89,6 @@ export default {
     locales: ["nb"],
     defaultLocale: "nb"
   },
-
-  // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    // https://go.nuxtjs.dev/axios
-    "@nuxtjs/axios",
-    "@nuxtjs/apollo"
-  ],
 
   apollo: {
     clientConfigs: {
@@ -106,6 +124,9 @@ export default {
     "/api/": {
       target: `http://127.0.0.1:${process.env.PORT}/`,
       pathRewrite: { "^/api/": "" }
+    },
+    "/socket.io/": {
+      target: `http://127.0.0.1:${process.env.PORT}/`
     },
     "/search/": {
       target: "http://127.0.0.1:7700",
