@@ -6,7 +6,7 @@
         to="/"
         >Listify
         <span
-          class="text-xs block w-10 lg:inline-block text-white bg-cyan-500 rounded font-light px-2 py-0.5 ml-2"
+          class="text-xs block w-10 lg:inline-block text-white bg-cyan-500 rounded font-light px-2 py-0.5 ml-2 lg:ml-0"
           >Beta</span
         ></router-link
       >
