@@ -43,8 +43,6 @@
         i er organisert. Når du er ferdig med å handle og forlater butikken blir
         lokasjonen din automatisk slettet for godt.
       </p>
-      <h2 class="text-xl lg:text-3xl mt-10">Åpenhet om teknologi</h2>
-      <p class="mt-4">Har du spørsmål til hvordan Listify fungerer eller hvordan dataene dine blir håndtert bak kulissene? Still et spørsmål eller eller legg igjen en beskjed nede i høyre hjørne, så deler vi mer enn gjerne hvordan vi håndterer data og hvordan Lisify fungerer helt ned til kildekoden.</p>
     </Content>
   </div>
 </template>

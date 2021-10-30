@@ -12,9 +12,21 @@
     <div
       class="grid grid-flow-col justify-end mr-6 items-center gap-8 font-semibold"
     >
-      <div>
-        <nuxt-link to="/about">Om Listify</nuxt-link>
-      </div>
+      <nuxt-link to="/about">Om Listify</nuxt-link>
+      <nuxt-link
+        :to="`/shopping-list/${$store.state.userInfo.shopping_lists[0].id}`"
+        v-if="
+          $store.state.userInfo &&
+            $store.state.userInfo.shopping_lists.length == 1
+        "
+      >
+        Min handleliste
+      </nuxt-link>
+      <!-- <nuxt-link :to="`/shopping-list?new=true`">
+        <span v-if="$store.state.userInfo.shopping_lists.length > 1"
+          >Mine handlelister</span
+        ><span v-else>Ny handleliste</span>
+      </nuxt-link> -->
       <Button
         v-if="$apolloHelpers.getToken() && $store.state.userInfo"
         @click.native="

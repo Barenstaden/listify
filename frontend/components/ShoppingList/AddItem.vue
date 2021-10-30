@@ -12,14 +12,16 @@
     <button type="submit" class="text-3xl w-2/12">+</button>
     <div
       class="w-full grid grid-cols-12 mb-3 px-3 gap-x-2"
-      v-if="categories && groceries && !groceries.length"
+      v-if="categories && groceries && !groceries.length && searchWord.length"
     >
       <v-select
         label="name"
         :options="categories"
+        :value="lastUsedCategory"
         v-model="category"
         class="col-span-9 text-left"
         placeholder="Velg en kategori"
+        @input="addItem()"
       ></v-select>
       <button
         class="col-span-3 text-white font-semibold bg-green-600 rounded"
@@ -99,23 +101,19 @@ export default {
       this.item = "";
     },
     async addNewGrocery() {
-      const category = this.categories.find(cat => cat.id == this.category);
       return await this.$axios({
         method: "post",
         url: "/groceries",
         data: {
           name: this.item.toLowerCase(),
-          category: category,
+          category: this.category.id,
           times_added: 1
         }
       }).then(res => res.data);
     },
     lastUsedCategory() {
       if (!this.items.length) return 0;
-      console.log(
-        this.items[0].grocery.category.id || this.items[0].grocery.category
-      );
-      return this.categories.findIndex(
+      return this.categories.find(
         c =>
           c.id == this.items[0].grocery.category.id ||
           parseInt(this.items[0].grocery.category)
@@ -165,12 +163,12 @@ export default {
   watch: {
     searchWord() {
       clearTimeout(this.searchTimer);
+      this.$apollo.queries.groceries.stop();
       this.searchTimer = setTimeout(() => {
-        console.log(this.searchWord, this.searchWord.length);
         this.searchWord.length
           ? this.$apollo.queries.groceries.start()
           : this.$apollo.queries.groceries.stop();
-      }, 500);
+      }, 300);
     }
   }
 };
