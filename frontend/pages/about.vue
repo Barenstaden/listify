@@ -1,7 +1,7 @@
 <template>
   <div>
     <Content class="py-10 text-white text-lg">
-      <h1 class="text-center text-2xl lg:text-5xl">Om Listify</h1>
+      <h1 class="text-center text-4xl">En smart og enkel handleliste</h1>
       <p class="mt-10">
         <strong
           >Listify er en handleliste som sorterer seg selv helt automatisk når
@@ -9,20 +9,20 @@
           i hele Norge, og blir bedre for hver gang du bruker den.</strong
         >
       </p>
-      <h2 class="text-xl lg:text-3xl mt-10">Automatisk sortering av varer</h2>
+      <h2 class="text-3xl mt-10">Automatisk sortering av varer</h2>
       <p class="mt-4">
         Listify lærer seg hvordan man handler, og bruker dette for å hjelpe deg
         med å sortere varene slik at du alltid er nærmest neste varekategori på
         listen.
       </p>
-      <h2 class="text-xl lg:text-3xl mt-10">Ingen unødvendige funksjoner</h2>
+      <h2 class="text-3xl mt-10">Ingen unødvendige funksjoner</h2>
       <p class="mt-4">
         Det skal ikke være nødvendig å måtte søke etter et produkt eller velge
         antall før du legger ting i handlelisten. Skriv helt enkelt hva du vil,
         så lenge du inkluderer navnet på varen du ønsker å legge til, så gjør
         Listify resten.
       </p>
-      <h2 class="text-xl lg:text-3xl mt-10">
+      <h2 class="text-3xl mt-10">
         Dekker alle butikker i hele Norge
       </h2>
       <p class="mt-4">
@@ -33,7 +33,7 @@
         klappe deg selv på skulderen - du har nemlig hjulpet neste person til å
         gjøre handleturen litt smidigere.
       </p>
-      <h2 class="text-xl lg:text-3xl mt-10">
+      <h2 class="text-3xl mt-10">
         Ingen andre trenger å vite hva eller hvor du har handlet
       </h2>
       <p class="mt-4">

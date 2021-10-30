@@ -1,16 +1,18 @@
 <template>
   <nav class="grid grid-flow-col w-full h-16 bg-gray-50 border-b-2 my-auto">
     <div class="col-span-3 my-auto">
-      <router-link class="text-2xl font-semibold ml-10" to="/"
+      <router-link
+        class="text-sm lg:text-2xl font-semibold ml-2 lg:ml-10"
+        to="/"
         >Listify
         <span
-          class="text-xs text-white bg-cyan-500 rounded font-light px-2 py-0.5"
+          class="text-xs block w-10 lg:inline-block text-white bg-cyan-500 rounded font-light px-2 py-0.5 ml-2"
           >Beta</span
         ></router-link
       >
     </div>
     <div
-      class="grid grid-flow-col justify-end mr-6 items-center gap-8 font-semibold"
+      class="grid grid-flow-col justify-end mr-2 lg:mr-6 items-center gap-2 lg:gap-8 font-semibold text-sm lg:text-base"
     >
       <nuxt-link to="/about">Om Listify</nuxt-link>
       <nuxt-link

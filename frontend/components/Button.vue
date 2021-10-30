@@ -51,7 +51,7 @@ export default {
       red: "border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
     },
     classList:
-      "font-bold border-2 py-2 px-6 rounded shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-100 active:shadow-lg duration-200 disabled:opacity-20"
+      "font-bold border-2 py-1 lg:py-2 px-3 lg:px-6 rounded shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-100 active:shadow-lg duration-200 disabled:opacity-20"
   })
 };
 </script>
