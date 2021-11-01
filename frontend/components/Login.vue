@@ -94,13 +94,13 @@ export default {
   methods: {
     async checkEmail() {
       this.loading = true;
-      console.log(this.isUser);
       if (this.isUser) return this.login();
       if (this.email && this.password && !this.isUser) return this.register();
       try {
         this.isUser = await this.$axios
           .get(`/users-permissions/exists?email=${this.email}`)
           .then(res => res.data);
+        if (!this.isUser) this.newUser = true;
       } catch (error) {
         console.log(error);
         this.newUser = true;
