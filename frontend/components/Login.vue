@@ -113,7 +113,6 @@ export default {
           identifier: this.email,
           password: this.password
         });
-        console.log(res);
         this.$axios.setHeader("Authorization", `Bearer ${res.data.jwt}`);
         this.$apolloHelpers.onLogin(res.data.jwt);
         this.$store.commit("setUserInfo", res.data.user);
@@ -149,8 +148,7 @@ export default {
             }
           })
           .then(res => {
-            this.$apolloHelpers.onLogin(res.data.register.jwt);
-            this.$emit("loggedIn");
+            this.login();
           });
       } catch (error) {
         window.location.reload();

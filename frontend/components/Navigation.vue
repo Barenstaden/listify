@@ -37,7 +37,8 @@
           [
             $apolloHelpers.onLogout(),
             $router.push('/'),
-            $store.commit('deleteUserInfo')
+            $store.commit('deleteUserInfo'),
+            $axios.setHeader(Authorization, '')
           ]
         "
         color="red"
