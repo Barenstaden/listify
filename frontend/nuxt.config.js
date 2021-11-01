@@ -116,7 +116,7 @@ export default {
       pathRewrite: { "^/api/": "" }
     },
     "/socket.io/": {
-      target: `http://127.0.0.1:${process.env.PORT}/`
+      target: `ws://127.0.0.1:${process.env.PORT}/`
     },
     "/search/": {
       target: "http://127.0.0.1:7700",
