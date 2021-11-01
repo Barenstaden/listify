@@ -83,8 +83,8 @@ export default {
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: process.server
-          ? "http://localhost:1337/graphql"
+        httpEndpoint: process.env.GRAPHQL_URL
+          ? process.env.GRAPHQL_URL
           : "https://listify.no/graphql"
       }
     },

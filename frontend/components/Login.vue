@@ -33,12 +33,22 @@
           required
         />
         <Input
+          v-if="newUser"
+          v-model="name"
+          type="text"
+          label="Ditt navn"
+          placeholder="Ola"
+          :focus="true"
+          :required="true"
+        />
+        <Input
           v-if="isUser || newUser"
           v-model="password"
           type="password"
           :label="newUser ? 'Velg et passord' : 'Ditt passord'"
           placeholder="********"
-          :focus="true"
+          :focus="isUser == true"
+          :required="true"
         />
         <p class="text-red-700" v-if="error">Feil passord</p>
         <Button
@@ -77,6 +87,7 @@ import gql from "graphql-tag";
 export default {
   data: () => ({
     email: "",
+    name: "",
     isUser: "",
     newUser: false,
     password: "",
@@ -95,7 +106,8 @@ export default {
     async checkEmail() {
       this.loading = true;
       if (this.isUser) return this.login();
-      if (this.email && this.password && !this.isUser) return this.register();
+      if (this.email && this.password && this.name && !this.isUser)
+        return this.register();
       try {
         this.isUser = await this.$axios
           .get(`/users-permissions/exists?email=${this.email}`)
@@ -124,32 +136,17 @@ export default {
     },
     async register() {
       try {
-        await this.$apollo
-          .mutate({
-            mutation: gql`
-              mutation register($email: String!, $password: String!) {
-                register(
-                  input: {
-                    email: $email
-                    username: $email
-                    password: $password
-                  }
-                ) {
-                  jwt
-                  user {
-                    id
-                  }
-                }
-              }
-            `,
-            variables: {
-              email: this.email,
-              password: this.password
-            }
-          })
-          .then(res => {
-            this.login();
-          });
+        const { name, password, email } = this;
+        const res = await this.$axios.post("/auth/local/register", {
+          name,
+          password,
+          email,
+          username: email,
+          online: false
+        });
+        this.$axios.setHeader("Authorization", `Bearer ${res.data.jwt}`);
+        this.$apolloHelpers.onLogin(res.data.jwt);
+        this.$store.commit("setUserInfo", res.data.user);
       } catch (error) {
         window.location.reload();
       }

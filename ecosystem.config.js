@@ -4,6 +4,7 @@ module.exports = {
       name: 'nuxt',
       env: {
         STRAPI_URL: 'http://localhost:1337',
+        GRAPHQL_URL: 'http://localhost:1337/graphql',
         PORT: 1337,
       },
       cwd: './frontend',
