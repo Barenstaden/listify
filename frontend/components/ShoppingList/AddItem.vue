@@ -68,8 +68,16 @@ export default {
     async search() {
       this.groceries = await this.searchWord.reduce(
         async (previousPromise, word) => {
-          console.log(word);
           let hits = await previousPromise;
+          const wholeWordHit = await this.client
+            .index("grocery")
+            .search(this.searchWord.join(" "), {
+              attributesToHighlight: ["name", "category"]
+            });
+          if (wholeWordHit.hits.length) {
+            hits.push(...wholeWordHit.hits);
+            return hits;
+          }
           const res = await this.client.index("grocery").search(word, {
             attributesToHighlight: ["name", "category"]
           });
