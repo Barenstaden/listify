@@ -12,9 +12,9 @@
   },
   "attributes": {
     "users": {
+      "via": "shopping_lists",
       "plugin": "users-permissions",
       "collection": "user",
-      "via": "shopping_lists",
       "dominant": true
     },
     "groceries": {
@@ -24,6 +24,12 @@
     },
     "last_used_shop": {
       "model": "shop"
+    },
+    "title": {
+      "type": "string"
+    },
+    "access_token": {
+      "type": "string"
     }
   }
 }

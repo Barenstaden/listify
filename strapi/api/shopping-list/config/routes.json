@@ -18,7 +18,7 @@
     },
     {
       "method": "GET",
-      "path": "/shopping-lists/:id",
+      "path": "/shopping-lists/:id/:token",
       "handler": "shopping-list.findOne",
       "config": {
         "policies": []
@@ -44,6 +44,14 @@
       "method": "PUT",
       "path": "/shopping-lists/:id",
       "handler": "shopping-list.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/add-new-user",
+      "handler": "shopping-list.addNewUser",
       "config": {
         "policies": []
       }

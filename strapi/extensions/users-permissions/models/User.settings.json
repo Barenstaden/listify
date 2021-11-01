@@ -62,6 +62,12 @@
     "shopping_lists": {
       "via": "users",
       "collection": "shopping-list"
+    },
+    "online": {
+      "type": "boolean"
+    },
+    "name": {
+      "type": "string"
     }
   }
 }

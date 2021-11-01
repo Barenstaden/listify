@@ -1,10 +1,10 @@
 <template>
-  <div class="my-2 px-2">
+  <div class="my-2 px-1">
     <label v-if="label" class="text-sm font-medium float-left">{{
       label
     }}</label>
     <input
-      class="w-full bg-transparent p-4"
+      class="w-full bg-transparent p-4 border-2 bolder-blue-200 rounded-lg mt-1"
       :type="type"
       :placeholder="
         placeholder ? placeholder : 'Fyll inn ' + label.toLowerCase()

@@ -11,17 +11,27 @@
  */
 
 module.exports = async () => {
-  // process.nextTick(() => {
-  //   var io = require("socket.io")(strapi.server);
-  //   io.on("connection", async function (socket) {
-  //     console.log(`a user connected`);
-  //     // send message on user connection
-  //     socket.emit("hello");
-  //     // listen for user diconnect
-  //     socket.on("disconnect", () => {
-  //       console.log("a user disconnected");
-  //     });
-  //   });
-  //   strapi.io = io; // register socket io inside strapi main object to use it globally anywhere
-  // });
+  process.nextTick(async () => {
+    var io = require("socket.io")(strapi.server);
+
+    io.on("connection", async (socket) => {
+      socket.join(socket.handshake.query.list);
+      if (!socket.handshake.query.id) return console.log("No id provided");
+      const res = await strapi
+        .query("user", "users-permissions")
+        .update({ id: socket.handshake.query.id }, { online: true });
+      console.log(res.email, "logged in");
+
+      // listen for user diconnect
+      socket.on("disconnect", async () => {
+        if (!socket.handshake.query.id)
+          return console.log("No id on disconnect");
+        const res = await strapi
+          .query("user", "users-permissions")
+          .update({ id: socket.handshake.query.id }, { online: false });
+        console.log(res.email, "logged off");
+      });
+    });
+    strapi.io = io; // register socket io inside strapi main object to use it globally anywhere
+  });
 };

@@ -7,5 +7,8 @@ export const mutations = {
   },
   deleteUserInfo(state) {
     state.userInfo = null;
+  },
+  addShoppingList(state, shoppingList) {
+    state.userInfo.shopping_lists.push(shoppingList);
   }
 };

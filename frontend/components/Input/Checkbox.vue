@@ -15,7 +15,7 @@
 <script>
 export default {
   props: {
-    icon: String
+    icon: String,
   },
   data: () => ({
     enter: false

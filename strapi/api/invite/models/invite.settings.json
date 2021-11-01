@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "invites",
+  "info": {
+    "name": "invite"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "shopping_list": {
+      "model": "shopping-list"
+    },
+    "email": {
+      "type": "string"
+    }
+  }
+}

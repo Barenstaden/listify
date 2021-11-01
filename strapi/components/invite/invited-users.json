@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_invite_invited_users",
+  "info": {
+    "name": "invited_users",
+    "icon": "user-plus"
+  },
+  "options": {},
+  "attributes": {
+    "email": {
+      "type": "string"
+    }
+  }
+}

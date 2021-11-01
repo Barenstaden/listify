@@ -107,7 +107,9 @@ export default {
         data: {
           name: this.item.toLowerCase(),
           category: this.category.id,
-          times_added: 1
+          times_added: 1,
+          token: this.$route.query.access_token,
+          list: this.$route.params.list
         }
       }).then(res => res.data);
     },

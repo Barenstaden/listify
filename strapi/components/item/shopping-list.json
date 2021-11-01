@@ -25,6 +25,10 @@
     },
     "longitude": {
       "type": "float"
+    },
+    "purchased_by": {
+      "plugin": "users-permissions",
+      "model": "user"
     }
   }
 }

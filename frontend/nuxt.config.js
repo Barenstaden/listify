@@ -37,16 +37,6 @@ export default {
     }
   },
 
-  // oneSignal: {
-  //   init: {
-  //     appId: "aa8695ac-2bfe-4c20-bb73-601b7cae49b8",
-  //     allowLocalhostAsSecureOrigin: true,
-  //     welcomeNotification: {
-  //       disable: true
-  //     }
-  //   }
-  // },
-
   css: ["@fortawesome/fontawesome-svg-core/styles.css"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -71,7 +61,6 @@ export default {
     "nuxt-vite",
     "@nuxtjs/dayjs",
     "@nuxtjs/device",
-    // "@nuxtjs/onesignal",
     "@nuxtjs/pwa"
   ],
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -87,7 +76,8 @@ export default {
 
   dayjs: {
     locales: ["nb"],
-    defaultLocale: "nb"
+    defaultLocale: "nb",
+    plugins: ["relativeTime", "calendar"]
   },
 
   apollo: {

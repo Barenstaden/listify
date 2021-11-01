@@ -16,13 +16,15 @@
     >
       <nuxt-link to="/about">Om Listify</nuxt-link>
       <nuxt-link
-        :to="`/shopping-list/${$store.state.userInfo.shopping_lists[0].id}`"
+        :to="`/shopping-list`"
         v-if="
-          $store.state.userInfo &&
-            $store.state.userInfo.shopping_lists.length == 1
+          $store.state.userInfo && $store.state.userInfo.shopping_lists.length
         "
       >
-        Min handleliste
+        <span v-if="$store.state.userInfo.shopping_lists.length == 1"
+          >Min handleliste</span
+        >
+        <span v-else>Mine handlelister</span>
       </nuxt-link>
       <!-- <nuxt-link :to="`/shopping-list?new=true`">
         <span v-if="$store.state.userInfo.shopping_lists.length > 1"
@@ -62,6 +64,7 @@ export default {
         "setUserInfo",
         await this.$axios.get("/users/me").then(res => res.data)
       );
+      console.log(this.$store.state.userInfo);
     }
   }
 };

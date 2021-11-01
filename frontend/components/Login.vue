@@ -11,7 +11,7 @@
     </div>
     <div v-else>
       <div v-if="!resetPasswordSent">
-        <div v-if="!username">
+        <div v-if="!isUser">
           <h3 class="text-2xl font-bold">
             <span v-if="!message"></span>
             <span v-else>{{ message }}</span>
@@ -26,14 +26,14 @@
         <Input
           v-model="email"
           type="email"
-          @input="[(username = ''), (newUser = false)]"
+          @input="[(newUser = false), (newUser = false)]"
           label="E-post"
           placeholder="ola@nordmann.no"
           :focus="focus"
           required
         />
         <Input
-          v-if="username || newUser"
+          v-if="isUser || newUser"
           v-model="password"
           type="password"
           :label="newUser ? 'Velg et passord' : 'Ditt passord'"
@@ -73,12 +73,11 @@
 </template>
 
 <script>
-import axios from "axios";
 import gql from "graphql-tag";
 export default {
   data: () => ({
     email: "",
-    username: "",
+    isUser: "",
     newUser: false,
     password: "",
     loading: false,
@@ -95,13 +94,15 @@ export default {
   methods: {
     async checkEmail() {
       this.loading = true;
-      if (this.username) return this.login();
-      if (this.email && this.password && !this.username) return this.register();
+      console.log(this.isUser);
+      if (this.isUser) return this.login();
+      if (this.email && this.password && !this.isUser) return this.register();
       try {
-        this.username = await this.$axios
-          .get(`/users?email=${this.email}`)
-          .then(res => res.data[0]);
+        this.isUser = await this.$axios
+          .get(`/users-permissions/exists?email=${this.email}`)
+          .then(res => res.data);
       } catch (error) {
+        console.log(error);
         this.newUser = true;
       }
       this.loading = false;
@@ -112,6 +113,7 @@ export default {
           identifier: this.email,
           password: this.password
         });
+        console.log(res);
         this.$axios.setHeader("Authorization", `Bearer ${res.data.jwt}`);
         this.$apolloHelpers.onLogin(res.data.jwt);
         this.$store.commit("setUserInfo", res.data.user);
