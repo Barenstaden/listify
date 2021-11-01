@@ -20,7 +20,7 @@ export default {
       },
       { name: "format-detection", content: "telephone=no" }
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon_.ico" }]
   },
   server: {
     port: 3001
@@ -30,8 +30,12 @@ export default {
     linkExactActiveClass: "active-link"
   },
   pwa: {
+    icon: {
+      fileName: "icon.png"
+    },
     manifest: {
-      name: "Listify",
+      name: "Listify - Smart handleliste",
+      short_name: "Listify",
       lang: "nb",
       useWebmanifestExtension: false
     }
@@ -143,7 +147,7 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   //
   build: {
-    cache: true
+    // cache: true
     // babel: {
     //   plugins: [
     //     ["@babel/plugin-proposal-private-methods", { loose: true }],
