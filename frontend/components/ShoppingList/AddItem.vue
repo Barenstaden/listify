@@ -45,6 +45,7 @@ import vSelect from "vue-select";
 Vue.component("v-select", vSelect);
 import "vue-select/dist/vue-select.css";
 import gql from "graphql-tag";
+import { MeiliSearch } from "meilisearch";
 export default {
   props: {
     items: Array,
@@ -56,33 +57,36 @@ export default {
     category: null,
     missingCategory: false,
     grocery: null,
-    searchTimer: 0
+    groceries: [],
+    searchTimer: 0,
+    client: new MeiliSearch({
+      host: window.location.origin + "/search/",
+      apiKey: "d3ebc0d6-d383-4a0d-91aa-a24d1845d5a1"
+    })
   }),
-  apollo: {
-    groceries: {
-      query: gql`
-        query groceries($name: [String]) {
-          groceries(where: { name_in: $name }) {
-            name
-            id
-            category {
-              id
-              name
-            }
-          }
-        }
-      `,
-      skip: true,
-      result: res => console.log(res.data),
-      variables() {
-        console.log(this.searchWord);
-        return {
-          name: this.searchWord
-        };
-      }
-    }
-  },
   methods: {
+    async search() {
+      this.groceries = await this.searchWord.reduce(
+        async (previousPromise, word) => {
+          let hits = await previousPromise;
+          const res = await this.client.index("grocery").search(word, {
+            attributesToHighlight: ["name", "category"]
+          });
+
+          if (!hits.length) {
+            hits.push(...res.hits);
+          } else {
+            const newHits = res.data.filter(
+              hit => !hits.some(h => h.id == hit.id)
+            );
+            hits.push(...newHits);
+          }
+          return hits;
+        },
+        Promise.resolve([])
+      );
+      this.groceries.filter(g => console.log(g.name));
+    },
     async addItem() {
       if (!this.groceries.length && this.category) {
         this.groceries.unshift(await this.addNewGrocery());
@@ -153,7 +157,7 @@ export default {
       return searchWord.reduce((words, word) => {
         word = word.replace(/[0-9]/g, "").toLowerCase();
         if (word.endsWith("er")) {
-          word = word.substring(0, word.length - 2);
+          word = word.substring(0, word.length - 1);
         }
 
         if (word.length) words.push(word);
@@ -164,11 +168,8 @@ export default {
   watch: {
     searchWord() {
       clearTimeout(this.searchTimer);
-      this.$apollo.queries.groceries.stop();
       this.searchTimer = setTimeout(() => {
-        this.searchWord.length
-          ? this.$apollo.queries.groceries.start()
-          : this.$apollo.queries.groceries.stop();
+        this.search();
       }, 50);
     }
   }
