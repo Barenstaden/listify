@@ -147,6 +147,7 @@ export default {
         this.$axios.setHeader("Authorization", `Bearer ${res.data.jwt}`);
         this.$apolloHelpers.onLogin(res.data.jwt);
         this.$store.commit("setUserInfo", res.data.user);
+        this.$emit("loggedIn", res.data.user);
       } catch (error) {
         window.location.reload();
       }
