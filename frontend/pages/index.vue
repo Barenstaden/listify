@@ -11,7 +11,7 @@
           </h1>
           <h2 class="text-xl lg:text-2xl mt-4">
             <!-- Trigger -->
-            En handleliste som sorteres automatisk når du kommer på butikken
+            En handleliste som sorteres automatisk når du er på butikken
           </h2>
           <Button to="/shopping-list" class="mt-4">Opprett handleliste</Button>
         </div>
