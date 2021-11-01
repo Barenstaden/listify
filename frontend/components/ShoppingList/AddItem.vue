@@ -169,7 +169,7 @@ export default {
         this.searchWord.length
           ? this.$apollo.queries.groceries.start()
           : this.$apollo.queries.groceries.stop();
-      }, 300);
+      }, 50);
     }
   }
 };
