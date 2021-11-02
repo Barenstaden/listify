@@ -68,6 +68,9 @@
     },
     "name": {
       "type": "string"
+    },
+    "nearby_stores": {
+      "type": "json"
     }
   }
 }

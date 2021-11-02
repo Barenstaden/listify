@@ -70,8 +70,12 @@ export default {
   }),
   async mounted() {
     if (!this.$store.state.userInfo) return;
-    if (!this.$store.state.userInfo.shopping_lists.length)
-      this.createShoppingList();
+    const { shopping_lists } = this.$store.state.userInfo;
+    if (!shopping_lists.length) this.createShoppingList();
+    // if (shopping_lists.length == 1) {
+
+    //   this.redirectToShoppingList(shopping_list[0].id);
+    // }
   },
   methods: {
     redirectToShoppingList(id) {

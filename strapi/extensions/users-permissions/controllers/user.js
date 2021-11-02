@@ -18,4 +18,16 @@ module.exports = {
       model: strapi.plugins["users-permissions"].models.user,
     });
   },
+  async update(ctx) {
+    const { id } = ctx.params;
+    const { user } = ctx.state;
+    const { body } = ctx.request;
+    if (id == user.id) {
+      return await strapi
+        .query("user", "users-permissions")
+        .update({ id }, body);
+    } else {
+      return ctx.send("Not you.", 403);
+    }
+  },
 };
