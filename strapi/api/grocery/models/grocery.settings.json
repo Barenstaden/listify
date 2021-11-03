@@ -36,6 +36,14 @@
       },
       "type": "biginteger",
       "default": "0"
+    },
+    "search_words": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
     }
   }
 }

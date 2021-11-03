@@ -76,11 +76,11 @@ export default {
 
       // Redirect user at login
       if (
-        this.$store.state.userInfo.shopping_lists.length == 1 &&
+        this.$store.state.userInfo.last_used_list &&
         this.$dayjs().diff(this.$store.state.loggedInAt, "seconds") < 2
       ) {
         this.$router.push(
-          `/shopping-list/${this.$store.state.userInfo.shopping_lists[0].id}`
+          `/shopping-list/${this.$store.state.userInfo.last_used_list.id}`
         );
       }
       this.loading = false;

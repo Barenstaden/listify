@@ -74,6 +74,9 @@
     },
     "logged_in_at": {
       "type": "datetime"
+    },
+    "last_used_list": {
+      "model": "shopping-list"
     }
   }
 }
