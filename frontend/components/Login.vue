@@ -123,12 +123,10 @@ export default {
       try {
         const res = await this.$axios.post("/auth/local", {
           identifier: this.email,
-          password: this.password
+          password: this.password,
+          logged_in_at: new Date()
         });
-        this.$axios.setHeader("Authorization", `Bearer ${res.data.jwt}`);
-        this.$apolloHelpers.onLogin(res.data.jwt);
-        this.$store.commit("setUserInfo", res.data.user);
-        this.$emit("loggedIn", res.data.user);
+        this.setLoginData(res.data);
       } catch (error) {
         this.error = true;
       }
@@ -144,14 +142,18 @@ export default {
           username: email,
           online: false
         });
-        this.$axios.setHeader("Authorization", `Bearer ${res.data.jwt}`);
-        this.$apolloHelpers.onLogin(res.data.jwt);
-        this.$store.commit("setUserInfo", res.data.user);
-        this.$emit("loggedIn", res.data.user);
+        this.setLoginData(res.data);
       } catch (error) {
         window.location.reload();
       }
       this.loading = false;
+    },
+    setLoginData(data) {
+      this.$axios.setHeader("Authorization", `Bearer ${data.jwt}`);
+      this.$apolloHelpers.onLogin(data.jwt);
+      this.$store.commit("setUserInfo", data.user);
+      this.$store.commit("setLoggedInAt");
+      this.$emit("loggedIn", data.user);
     },
     async forgotPassword() {
       this.loading = true;

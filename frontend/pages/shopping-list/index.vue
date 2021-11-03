@@ -72,10 +72,13 @@ export default {
     if (!this.$store.state.userInfo) return;
     const { shopping_lists } = this.$store.state.userInfo;
     if (!shopping_lists.length) this.createShoppingList();
-    // if (shopping_lists.length == 1) {
-
-    //   this.redirectToShoppingList(shopping_list[0].id);
-    // }
+    // If one shopping list and just logged in
+    if (
+      shopping_lists.length == 1 &&
+      this.$dayjs().diff(this.$store.state.loggedInAt, "seconds") < 2
+    ) {
+      this.redirectToShoppingList(shopping_lists[0].id);
+    }
   },
   methods: {
     redirectToShoppingList(id) {

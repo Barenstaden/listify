@@ -71,6 +71,9 @@
     },
     "nearby_stores": {
       "type": "json"
+    },
+    "logged_in_at": {
+      "type": "datetime"
     }
   }
 }

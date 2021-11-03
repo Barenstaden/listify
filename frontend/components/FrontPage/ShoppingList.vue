@@ -1,7 +1,7 @@
 <template>
   <AnimatedList :duration="duration" class="p-3">
     <li
-      class="bg-gray-100 m-auto shadow my-0.5 p-3 text-left rounded capitalize flex"
+      class="bg-gray-100 m-auto shadow my-1 p-3 text-left rounded flex"
       v-for="item in items"
       :key="item.name"
       @click="
