@@ -31,7 +31,7 @@ export default {
   },
   pwa: {
     icon: {
-      fileName: "icon____.png"
+      fileName: "icon__.png"
     },
     manifest: {
       name: "Listify - Smart handleliste",
