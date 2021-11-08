@@ -47,7 +47,7 @@
               v-model="title"
             />
             <div>
-              <Button class="mr-2" color="green"
+              <Button type="submit" class="mr-2" color="green"
                 ><Loading :loading="loading" text="Lagre"
               /></Button>
               <Button type="button" color="red" @click.native="addList = false"
@@ -92,6 +92,7 @@ export default {
       }
     },
     async createShoppingList() {
+      console.log("hei");
       this.loading = true;
       try {
         const res = await this.$axios({
