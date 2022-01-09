@@ -6,6 +6,7 @@
       </router-link>
     </div>
     <button
+      @click="$emit('click', $event)"
       v-else
       :disabled="disabled"
       :type="type"

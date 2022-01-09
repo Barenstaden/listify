@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <Content v-if="!$apolloHelpers.getToken() && !$store.state.userInfo">
+    <Content v-if="!$auth.loggedIn">
       <h1 class="text-4xl mb-3 text-white pt-10">Opprett en handleliste</h1>
       <p class="lg:w-2/3 mx-auto text-xl text-white text-left mb-6">
         Fyll inn en e-post for å opprette bruker. Registrering tar bare et par
@@ -16,7 +16,7 @@
       <div class="grid lg:grid-cols-3 mt-10 gap-8">
         <nuxt-link
           class="bg-gray-50 p-4 text-gray-900 rounded-xl"
-          v-for="(list, index) in $store.state.userInfo.shopping_lists"
+          v-for="(list, index) in $auth.user.shopping_lists"
           :key="list.id"
           :to="`/shopping-list/${list.id}`"
         >
@@ -69,13 +69,13 @@ export default {
     loading: false
   }),
   async mounted() {
-    if (!this.$store.state.userInfo) return;
-    const { shopping_lists } = this.$store.state.userInfo;
+    if (!this.$auth.loggedIn) return;
+    const { shopping_lists } = this.$auth.user;
     if (!shopping_lists.length) this.createShoppingList();
     // If one shopping list and just logged in
     if (
       shopping_lists.length == 1 &&
-      this.$dayjs().diff(this.$store.state.loggedInAt, "seconds") < 2
+      this.$dayjs().diff(this.$auth.user.last_login, "seconds") < 2
     ) {
       this.redirectToShoppingList(shopping_lists[0].id);
     }
@@ -99,11 +99,11 @@ export default {
           url: "/shopping-lists",
           method: "post",
           data: {
-            users: this.$store.state.userInfo.id,
+            users: this.$auth.user.id,
             title: this.title || "Ny handleliste"
           }
         });
-        this.$store.commit("addShoppingList", res.data);
+        this.$auth.fetchUser();
         this.addList = false;
         this.title = "";
       } catch (error) {

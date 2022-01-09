@@ -71,8 +71,33 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
-    "@nuxtjs/apollo"
+    "@nuxtjs/auth"
   ],
+
+  auth: {
+    resetOnError: true,
+    redirect: {
+      login: "/login",
+      home: false
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: "auth/local",
+            method: "post",
+            propertyName: "jwt"
+          },
+          user: {
+            url: "users/me",
+            method: "get",
+            propertyName: false
+          },
+          logout: false
+        }
+      }
+    }
+  },
 
   vite: {
     build: false
@@ -84,25 +109,11 @@ export default {
     plugins: ["relativeTime", "calendar"]
   },
 
-  apollo: {
-    clientConfigs: {
-      default: {
-        httpEndpoint: process.env.GRAPHQL_URL
-          ? process.env.GRAPHQL_URL
-          : "https://listify.no/graphql"
-      }
-    },
-    defaultOptions: {
-      $query: {
-        loadingKey: "loading"
-      }
-    }
-  },
-
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     proxy: true,
-    baseUrl: "http://127.0.0.1:1337/"
+    baseUrl: "http://127.0.0.1:1337/",
+    progress: false
   },
   publicRuntimeConfig: {
     axios: {

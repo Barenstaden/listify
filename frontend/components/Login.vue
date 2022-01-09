@@ -2,7 +2,7 @@
   <Card
     class="max-w-screen-sm rounded-xl bg-white mx-auto text-center py-4 md:py-10"
   >
-    <div v-if="$store.state.userInfo">
+    <div v-if="$auth.loggedIn">
       <h3 class="text-2xl">Du er allerede logget inn</h3>
       <Button to="/shopping-list" class="mt-4">Gå til din handleliste</Button>
       <Button class="ml-2" @click.native="$emit('loggedIn')" color="red"
@@ -19,7 +19,7 @@
         </div>
       </div>
       <form
-        v-if="!resetPasswordSent && !$store.state.userInfo"
+        v-if="!resetPasswordSent && !$auth.loggedIn"
         @submit.prevent="checkEmail()"
         class="px-2 md:px-10 md:pt-10"
       >
@@ -83,7 +83,6 @@
 </template>
 
 <script>
-import gql from "graphql-tag";
 export default {
   data: () => ({
     email: "",
@@ -121,12 +120,18 @@ export default {
     },
     async login() {
       try {
-        const res = await this.$axios.post("/auth/local", {
-          identifier: this.email,
-          password: this.password,
-          logged_in_at: new Date()
+        const user = await this.$auth
+          .loginWith("local", {
+            data: {
+              identifier: this.email.toLowerCase(),
+              password: this.password
+            }
+          })
+          .then(res => res.data.user);
+        await this.$axios.put(`/users/${this.$auth.user.id}`, {
+          last_login: new Date()
         });
-        this.setLoginData(res.data);
+        this.$emit("loggedIn", user);
       } catch (error) {
         this.error = true;
       }
@@ -147,13 +152,6 @@ export default {
         window.location.reload();
       }
       this.loading = false;
-    },
-    setLoginData(data) {
-      this.$axios.setHeader("Authorization", `Bearer ${data.jwt}`);
-      this.$apolloHelpers.onLogin(data.jwt);
-      this.$store.commit("setUserInfo", data.user);
-      this.$store.commit("setLoggedInAt");
-      this.$emit("loggedIn", data.user);
     },
     async forgotPassword() {
       this.loading = true;
