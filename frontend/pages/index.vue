@@ -7,7 +7,7 @@
             Kanskje norges smarteste handleliste for
             <span class="font-black" :class="shops[selectedShop].color">{{
               shops[selectedShop].name
-            }}</span>
+              }}</span>
           </h1>
           <h2 class="text-xl lg:text-2xl mt-4">
             <!-- Trigger -->
@@ -16,10 +16,8 @@
           <Button to="/shopping-list" class="mt-4">Opprett handleliste</Button>
         </div>
         <div class="md:col-span-3 mx-auto md:my-10">
-          <FrontPageDevice
-            class="transform scale-90 md:scale-100 -ml-5 -mb-2 -mt-4 md:ml-0 md:mb-0 md:mt-0"
-            :items="itemsSortedByShop"
-          />
+          <FrontPageDevice class="transform scale-90 md:scale-100 -ml-5 -mb-2 -mt-4 md:ml-0 md:mb-0 md:mt-0"
+            :items="itemsSortedByShop" />
         </div>
       </div>
     </Content>
@@ -27,8 +25,7 @@
     <Content class="text-white md:-mt-3">
       <div class="grid lg:grid-cols-3 gap-8 pt-4 pb-10 lg:py-20 items-center">
         <div
-          class="col-span-3 lg:col-span-1 w-full text-gray-900 bg-green-500 lg:w-64 mx-auto p-2 rounded-xl shadow-xl transform -rotate-2"
-        >
+          class="col-span-3 lg:col-span-1 w-full text-gray-900 bg-green-500 lg:w-64 mx-auto p-2 rounded-xl shadow-xl transform -rotate-2">
           <div class="transform rotate-2 bg-gray-100 rounded-xl shadow">
             <FrontPageShoppingList :duration="0.5" :items="purchasingItems" />
           </div>
@@ -43,23 +40,9 @@
             uten at de trenger å laste ned en app - bare del linken til
             handelisten.
           </p>
-          <Button to="/shopping-list" color="white" class="mt-6"
-            >Kom i gang</Button
-          >
+          <Button to="/shopping-list" color="white" class="mt-6">Kom i gang</Button>
         </div>
 
-        <!-- <AnimatedList>
-          <div
-            v-for="item in purchasedItems"
-            class="bg-white p-3 my-1 rounded text-gray-900"
-            :key="item.name"
-          >
-            <p class="text-xs">
-              {{ $dayjs(item.purchased_at).format("HH:mm") }}
-            </p>
-            Ola kjøpte {{ item.name.toLowerCase() }}
-          </div>
-        </AnimatedList> -->
       </div>
     </Content>
     <Content class="py-20 text-gray-800 bg-gray-100">
@@ -77,21 +60,8 @@
             første gang du besøker en butikk.
           </p>
         </div>
-        <FrontPageAddItem
-          class="border-2 col-span-3 lg:col-span-1 border-green-500  rounded-xl p-3 text-gray-900"
-        />
+        <FrontPageAddItem class="border-2 col-span-3 lg:col-span-1 border-green-500  rounded-xl p-3 text-gray-900" />
       </div>
-    </Content>
-    <Content class="py-20 text-white">
-      <h2 class="text-3xl">Dekker Listify min butikk?</h2>
-      <p class="py-2 text-xl">
-        Listify lærer mens du handler og blir bedre jo mer det blir handlet i en
-        butikk. Bli med å gjøre Listify enda bedre ved å opprette en
-        handleliste!
-      </p>
-      <Button to="/shopping-list" color="white" class="mt-4"
-        >Opprett handleliste</Button
-      >
     </Content>
   </div>
 </template>
@@ -163,40 +133,40 @@ export default {
     purchasing: true
   }),
   mounted() {
-    this.notPurchasedItems = this.shoppingList.length;
+    this.notPurchasedItems = this.shoppingList.length
     setInterval(() => {
       if (this.selectedShop == this.shops.length - 1) {
-        this.selectedShop = 0;
+        this.selectedShop = 0
       } else {
-        this.selectedShop++;
+        this.selectedShop++
       }
-    }, 4000);
+    }, 4000)
   },
   methods: {
     findIndexOfCategory(idToFind) {
-      return this.shops[this.selectedShop].sort.findIndex(id => id == idToFind);
+      return this.shops[this.selectedShop].sort.findIndex(id => id == idToFind)
     }
   },
   computed: {
     purchasingItems() {
       return this.shoppingList.concat().sort((a, b) => {
-        return a.purchased - b.purchased;
-      });
+        return a.purchased - b.purchased
+      })
     },
     purchasedItems() {
       return this.purchasingItems
         .filter(i => i.purchased)
         .concat()
-        .sort((a, b) => a.purchased_at - b.purchased_at);
+        .sort((a, b) => a.purchased_at - b.purchased_at)
     },
     itemsSortedByShop() {
       return this.shoppingList.concat().sort((a, b) => {
         return (
           this.findIndexOfCategory(a.category) -
           this.findIndexOfCategory(b.category)
-        );
-      });
+        )
+      })
     }
   }
-};
+}
 </script>
